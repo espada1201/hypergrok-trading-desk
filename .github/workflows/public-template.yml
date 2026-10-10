@@ -1,6 +1,6 @@
 # PR definitions come from the trusted base; the job guard rejects fork heads
 # before runner admission. Trusted PRs check their exact head SHA.
-# Runner-native git avoids shared-IP action-download throttling.
+# GitHub-hosted runners keep this public repository's CI off dappnode.
 name: Public Grok Bot template
 on:
   schedule:
@@ -10,11 +10,7 @@ permissions:
   contents: read
 jobs:
   verify:
-    runs-on:
-      - self-hosted
-      - linux
-      - x64
-      - dappnode
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout with runner git
         env:
