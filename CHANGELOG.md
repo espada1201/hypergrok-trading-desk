@@ -8,6 +8,7 @@ Prepared as the **1.6.0 candidate** on 2026-10-10. No tag, npm package or public
 + Save requests and decoded responses with retrieval times, observed CSVs and a hashed manifest. Offline `--verify` replays captured evidence and rejects changed files or inconsistent completeness claims. An intact incomplete bundle still fails the complete-data gate; local integrity does not prove source authenticity or strategy edge.
 + Require analyst-to-strategist handoffs to cite the bundle, manifest hash, requested period, coverage and verification. Preserve delisted-market flags, actual funding timestamps and missing observations; label oracle-price proxies and historical execution-cost assumptions explicitly.
 + Prepare package and six plugin manifests, bootstrap pins, changed skill versions and native-template hashes together. Mark the candidate template `ready-to-publish` with no public URL, while retaining historical 1.5.0 publication evidence.
++ Add a Claude Code `PreToolUse` hook that asks the user to confirm any Bash command, or script it names, that looks like a Hyperliquid exchange write, including in auto mode. It matches Python SDK and TypeScript client write methods and raw `/exchange` POSTs, never approves anything, and is documented as a backstop rather than native approval coverage. Idea from thysmans/hypergrok-iterated; original implementation with regression tests.
 + Open the README with a one-paragraph definition of the desk and where it runs, so search engines and assistants can describe it accurately.
 
 ## 1.5.0 - 2026-10-08

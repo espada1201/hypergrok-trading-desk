@@ -50,6 +50,10 @@ All adaptations use original prose. No fork runtime, hook, strategy or signing c
 
 **shadowslayerai/hypergrok-trading-desk.** Inspected `STEAL.md`, `DESK-REVIEW.md` and `DESK-CHANGELOG.md` on both feature branches. Most controls are adaptations of existing HyperGrok features into a Coinbase CFM desk: stressed stops, depth floors, exact ticket ids, protection deadlines, journal review and three-outcome watches. Coinbase contract/margin-window/expiry specifics and another user's account configuration were not transferred. The critique of the native-approval fallback identified a real upstream contradiction and was resolved.
 
+## Addendum - 2026-10-12
+
+The thysmans hook was reconsidered as a confirmation-only backstop and rewritten as original code in `hooks/exchange_write_gate.py`. The objections above are addressed or kept explicit: it has no automatic allow for any class of send, it also scans script files the command names, and it matches the TypeScript client and raw `/exchange` POSTs as well as the Python SDK. It still cannot bind a send to an account, network, ticket, standing scope or expiry, and it does not follow imports, so it remains a backstop that does not satisfy native approval coverage. The strategy playbooks and personal cadence stay rejected.
+
 ## Validation and distribution
 
 Run `bash scripts/check.sh` and `validate-agent-skills skills`; all seventeen skills, seven roles, release pointers and template hashes remain part of the distribution contract. The risk examples demonstrate that $40 of position risk plus $80 of pending risk plus a $100 candidate exceeds a $200 cap, and a confirmed $30/$50 partial-fill split still consumes the original $80 reservation. Independently review the changed approval, reservation and recovery paths. Never test these instructions by placing a live trade.

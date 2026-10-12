@@ -193,6 +193,8 @@ In Claude Code, add this repository as a marketplace and install the plugin:
 /plugin install hypergrok@hypergrok
 ```
 
+The Claude Code plugin also registers a `PreToolUse` hook that asks you to confirm any Bash command, or script it names, that looks like a Hyperliquid exchange write, including in auto mode. It never approves a send and does not replace the ticket protocol or native approval coverage in section 7.
+
 After candidate publication, use this Grok Build install command. Its format was tested with Grok Build 1.0.30 for an earlier release; this candidate has no native installation proof yet.
 
 ```bash

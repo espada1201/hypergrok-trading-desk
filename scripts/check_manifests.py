@@ -27,7 +27,7 @@ MANIFESTS = [
 ]
 
 # Manifest keys whose value is a path into this repository.
-PATH_KEYS = ("source", "logo", "skills", "agents", "rules")
+PATH_KEYS = ("source", "logo", "skills", "agents", "rules", "hooks")
 
 # The marketplace manifest Claude Code resolves `/plugin marketplace add` against.
 MARKETPLACE_MANIFEST = ".claude-plugin/marketplace.json"

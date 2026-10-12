@@ -21,6 +21,10 @@ The [fork review](FORK_REVIEW.md) records all observed heads and dispositions. I
 
 Account abstraction and `userRole` response fields, subscription acknowledgements, snapshot fills and fill identifiers were rechecked against the official [info endpoint](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/info-endpoint) and [WebSocket subscriptions](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/websocket/subscriptions) references on 2026-10-02. Reservations and reconnect readiness are desk controls, not exchange guarantees. No key or signed order was used for this review.
 
+## Claude Code exchange write gate - 2026-10-12
+
+The idea of a tool-layer confirmation came from [thysmans/hypergrok-iterated](https://github.com/thysmans/hypergrok-iterated/commit/3372e289) (see the [fork review](FORK_REVIEW.md#addendum---2026-10-12)). `hooks/exchange_write_gate.py` is an original stdlib implementation written against the Claude Code [hooks](https://code.claude.com/docs/en/hooks) and [plugin manifest](https://code.claude.com/docs/en/plugins-reference) references: `ask` forces a prompt even in auto mode, and a plugin `hooks` path merges with any default hooks file. Method names come from the SDK calls already documented in `hyperliquid-orders`, `hyperliquid-positions` and `hyperliquid-advanced`. No fork code was copied.
+
 ## Hyperliquid CLI design review - 2026-10-08
 
 Reviewed [hypurrclaw/hyperliquid-cli](https://github.com/hypurrclaw/hyperliquid-cli/tree/5d950fff8b8c1fcd9792132614fec103476f666f), version 0.11.1, at commit `5d950fff8b8c1fcd9792132614fec103476f666f`. Its command contracts and explicit DEX resolution informed the original stdlib JSON diagnostics, offline contract discovery and read-only HIP-3 snapshots in this release. No third-party code, prose, fixture, wallet backend, fee default or execution loop was copied.

@@ -136,6 +136,8 @@ In Claude Code, install it from this repository:
 /plugin install hypergrok@hypergrok
 ```
 
+In Claude Code the plugin adds a hook that asks you to confirm any command that looks like a Hyperliquid exchange write, even in auto mode. It is a backstop: approval still happens by ticket id.
+
 After publication, install the candidate in Grok Build using the pinned command below. The installation format was tested with Grok Build 1.0.30 for an earlier release; this candidate has no native installation proof yet.
 
 ```bash
