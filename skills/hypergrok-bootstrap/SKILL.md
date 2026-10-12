@@ -25,8 +25,6 @@ Bootstrap is research-only.
 
 ## 1. Install the reviewed release
 
-The v1.6.0 source candidate is unpublished as of 2026-10-10. Its pins describe the intended release contract; until the reviewed tag exists, report that setup is pending. Local contributor checks do not establish a published template or native desk readiness. Never substitute a moving branch for the missing tag.
-
 If `/workspace/hypergrok` is already a Git checkout, preserve it. Verify that `plugin.json` names version `1.6.0` and that `git rev-parse HEAD` equals `git rev-parse 'refs/tags/v1.6.0^{commit}'`. If the tag is unavailable, the version differs or the commits differ, report the existing version and commit and stop dependent setup. A structural pass from an older release is insufficient; do not overwrite, reset or switch the existing checkout. Otherwise clone the pinned release:
 
 ```bash

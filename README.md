@@ -12,13 +12,11 @@ Set up the Desk Lead in Grok Bot using the pinned bootstrap below. It opens with
 
 ## Start
 
-**Source candidate: v1.6.0, unpublished as of 2026-10-10.** The release pins below prepare one consistent candidate; the tag, npm package and public template have not been published for it. Reviewers can run the read-only tools from this checkout. Use the pinned install commands only after that release is published.
-
-The existing [public HyperGrok Desk Lead template](https://x.ai/bot/-c_oDxnkrXbWhBz-u4qu5) was published for **1.5.0**. Send **Start the desk.** to install that release's seventeen skills and verify native instructions. It does not carry this candidate's research dataset workflow. [Publication evidence](docs/GROK_BOT_TEMPLATE.md#publication-verification---2026-10-08) remains recorded separately.
-
-Once the candidate is released, its pinned bootstrap instruction will be:
+Open Grok Bot and paste this to a Bot:
 
 > Set up the HyperGrok trading desk from https://github.com/galleonlabs/hypergrok-trading-desk/blob/v1.6.0/skills/hypergrok-bootstrap/SKILL.md. Follow the bootstrap skill, use https://github.com/galleonlabs/hypergrok-trading-desk/blob/v1.6.0/SETUP.md for the complete runbook, and finish with its evidence receipt.
+
+The v1.6.0 bootstrap installs the complete seventeen-skill release and verifies native role and skill instructions. The [public HyperGrok Desk Lead template](https://x.ai/bot/-c_oDxnkrXbWhBz-u4qu5) is being refreshed for this release; until then, **Start the desk.** there installs 1.5.0, without the research dataset workflow. [Publication evidence](docs/GROK_BOT_TEMPLATE.md#publication-verification---2026-10-08) for 1.5.0 is recorded separately.
 
 The desk starts in research mode. The first demo uses only Hyperliquid's public `/info` endpoint: no wallet, account read or order. Add a testnet API wallet when you want to practise with play money, and a mainnet one when you are ready.
 
@@ -138,7 +136,7 @@ In Claude Code, install it from this repository:
 
 In Claude Code the plugin adds a hook that asks you to confirm any command that looks like a Hyperliquid exchange write, even in auto mode. It is a backstop: approval still happens by ticket id.
 
-After publication, install the candidate in Grok Build using the pinned command below. The installation format was tested with Grok Build 1.0.30 for an earlier release; this candidate has no native installation proof yet.
+In Grok Build, install the reviewed release. The installation format was tested with Grok Build 1.0.30 for an earlier release; 1.6.0 has no native installation proof yet.
 
 ```bash
 grok plugin install galleonlabs/hypergrok-trading-desk@v1.6.0 --trust
@@ -152,7 +150,7 @@ grok plugin marketplace add galleonlabs/hypergrok-trading-desk
 grok plugin install hypergrok --trust
 ```
 
-This candidate's marketplace index pins the same pending release tag.
+The marketplace index on `main` pins the same reviewed release.
 In Cursor, open the repository and enable the plugin.
 
 The same pack installs as a skill:
@@ -161,7 +159,7 @@ The same pack installs as a skill:
 npm exec --package=skills@1.5.23 -- skills add galleonlabs/hypergrok-trading-desk
 ```
 
-After publication, the complete candidate resources will also install from npm:
+The complete resources also install from npm:
 
 ```bash
 npm install --save-exact --ignore-scripts hypergrok-trading-desk@1.6.0

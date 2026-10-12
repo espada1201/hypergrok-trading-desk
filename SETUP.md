@@ -1,7 +1,5 @@
 # Set up the HyperGrok trading desk
 
-**Candidate notice — 2026-10-10:** v1.6.0 is prepared for review and has not been tagged, published to npm or exported as a public template. The pins below are the candidate's release contract. Do not run its install path until the reviewed release exists, substitute `main` for the missing tag or claim native readiness from local checks.
-
 You are a Grok Bot building the user's Hyperliquid trading desk from this repository. Follow this file top to bottom. When you finish, the user has seven specialist Bots (six on a **Trading Floor** group chat, one reviewer by DM), seventeen shared skills, a prepared desk computer and a written desk record. Setup is read-only: no keys, no orders.
 
 If your runtime loaded this repository as a plugin, invoke `hypergrok-bootstrap`: it performs this runbook, rings a live zero-key Opening Bell first, and returns the same receipt. This file remains the complete manual path and source of truth.
@@ -195,7 +193,7 @@ In Claude Code, add this repository as a marketplace and install the plugin:
 
 The Claude Code plugin also registers a `PreToolUse` hook that asks you to confirm any Bash command, or script it names, that looks like a Hyperliquid exchange write, including in auto mode. It never approves a send and does not replace the ticket protocol or native approval coverage in section 7.
 
-After candidate publication, use this Grok Build install command. Its format was tested with Grok Build 1.0.30 for an earlier release; this candidate has no native installation proof yet.
+In Grok Build, install the reviewed release. Its format was tested with Grok Build 1.0.30 for an earlier release; 1.6.0 has no native installation proof yet.
 
 ```bash
 grok plugin install galleonlabs/hypergrok-trading-desk@v1.6.0 --trust

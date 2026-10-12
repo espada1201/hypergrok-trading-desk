@@ -1,8 +1,8 @@
 # Changelog
 
-## Unreleased
+## 1.6.0 - 2026-10-12
 
-Prepared as the **1.6.0 candidate** on 2026-10-10. No tag, npm package or public Grok Bot template has been published for this candidate.
+Tagged and published to npm. The public Grok Bot template still carries 1.5.0 and is being refreshed; `template/grok-bot.json` stays `ready-to-publish` until the new share is verified.
 
 + Add `scripts/research_dataset.py` for bounded public perp candle and optional funding collection. Explicit closed UTC windows, canonical market/DEX and network identity, validated observations, duplicate conflict detection, finite paced pagination and coverage gaps replace the strategy lab's silent CSV truncation path. No key, account read, synthetic data or exchange action is involved.
 + Save requests and decoded responses with retrieval times, observed CSVs and a hashed manifest. Offline `--verify` replays captured evidence and rejects changed files or inconsistent completeness claims. An intact incomplete bundle still fails the complete-data gate; local integrity does not prove source authenticity or strategy edge.
