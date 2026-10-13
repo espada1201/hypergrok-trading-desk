@@ -36,6 +36,8 @@ bash scripts/check.sh
 
 Share the Bot publicly from Grok Bot and copy its `https://x.ai/bot/<id>` link. Change the manifest status to `published`, add that exact URL as `publicShareUrl`, and put the same link in `README.md` and `docs/FAQ.md`. The template validator rejects a published state if the URL is malformed or missing from either public install surface.
 
+Keep the publishing Bot after release: hide it rather than delete it. A share outlives its Bot, and once the Bot is deleted neither the app nor x.ai offers a way to update or unpublish that link, so a stale share keeps installing an old release. With the Bot kept, the next release uses **Update template** in its Share menu and the existing link moves forward. As of 2026-10-13 the Bots behind the 1.4.8, 1.5.0 and 1.6.1 shares have all been deleted, so the next release needs a fresh Bot and link; retiring the 1.4.8 and 1.5.0 links needs xAI support.
+
 Inspect the native share's Context panel before publishing: it must contain the reviewed bootstrap instructions and no other skills. Independently read back the stored content to verify its body; a Context entry or a file downloaded to the author's computer does not prove all exported bytes. Verify the exported avatar separately from the publishing Bot's avatar. The public preview must show:
 
 - **HyperGrok Desk Lead**
