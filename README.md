@@ -211,11 +211,6 @@ assets/      the mascot - use it as your Bots' avatar
 | [Provenance](docs/PROVENANCE.md) | sources and licences |
 | [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) · [Changelog](CHANGELOG.md) | |
 
-<p align="center">
-  <img src="https://pump.fun/pump-logomark.svg" width="52" alt="pump.fun"><br>
-  <strong>Supported by the pump.fun community</strong>
-</p>
-
 ## License and credit
 
 [MIT licensed](LICENSE), with the copyright and permission notice retained when reusing copies or substantial portions. Created by [Andrew Wilkinson](https://andrewwilkinson.io) and [Galleon Labs](https://github.com/galleonlabs).
