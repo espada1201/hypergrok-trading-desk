@@ -2,7 +2,7 @@
 
 `template/grok-bot.json` is the release contract for the public **HyperGrok Desk Lead** template. It records the exact public profile, source release, avatar, exported bootstrap skill and complete reviewed release inventory. `templateSkillNames` lists the skills carried by the share; `skills` contains all seventeen files and hashes that setup must install and verify.
 
-**Release state — 2026-10-12:** v1.6.0 is tagged and published to npm, and its contract stays `status: ready-to-publish` with `publicShareUrl: null` until the public template is re-authored. The existing 1.5.0 share still installs 1.5.0; it and its recorded proof below are evidence for that release only. No 1.6.0 native readback or fresh-import acceptance is claimed. The weekly public-template check fails until the new share is published and recorded.
+**Release state — 2026-10-13:** v1.6.1 is tagged and published to npm, and its contract stays `status: ready-to-publish` with `publicShareUrl: null` until the public template is re-authored. 1.6.0 was released without a template refresh, so the existing 1.5.0 share still installs 1.5.0; it and its recorded proof below are evidence for that release only. No 1.6.1 native readback or fresh-import acceptance is claimed. The weekly public-template check fails until the new share is published and recorded.
 
 The public template carries one `hypergrok-bootstrap` skill. **Add to Grok Bot** imports the Desk Lead and bootstrap; **Start the desk.** fetches the pinned release and installs the full seventeen-skill desk. Grok Bot's share helper limits its inline recipe to 100,000 characters; the full reviewed pack exceeds that limit. Keep the complete instructions in the release instead of shortening them to fit the share.
 
