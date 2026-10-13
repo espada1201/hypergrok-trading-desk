@@ -4,7 +4,7 @@
 Seven Bots in your Grok Bot workspace, one Trading Floor group chat, seventeen shared skills, a live zero-key Opening Bell and a written way of working. Ask for a market brief, a sized trade, a backtest or a review, and the right Bot answers with live data and sources.
 
 **What do I need to start?**
-Paste the [pinned bootstrap](../README.md#start) to a Bot in Grok Bot. The [public HyperGrok Desk Lead template](https://x.ai/bot/-c_oDxnkrXbWhBz-u4qu5) is being refreshed for 1.6.1; until then, **Start the desk.** there installs 1.5.0. The desk starts in research mode and proves public market access without asking for a key. Add a testnet API wallet only when you want to practise; add a mainnet one when you decide to trade real money.
+Use the [public HyperGrok Desk Lead template](https://x.ai/bot/3Fjt0kR65RoGjj5JNZJWp), then send **Start the desk.** Its v1.6.1 bootstrap verifies the complete skill pack and native instructions. The [pinned bootstrap in the README](../README.md#start) is also available. The desk starts in research mode and proves public market access without asking for a key. Add a testnet API wallet only when you want to practise; add a mainnet one when you decide to trade real money.
 
 **What does the desk doctor inspect?**
 The release version and tag pin, all agent and skill files, the desk folders and record, and a public Hyperliquid `allMids` response. It never reads environment variables, keys or account state, and never calls the exchange write endpoint.

@@ -16,7 +16,7 @@ Open Grok Bot and paste this to a Bot:
 
 > Set up the HyperGrok trading desk from https://github.com/galleonlabs/hypergrok-trading-desk/blob/v1.6.1/skills/hypergrok-bootstrap/SKILL.md. Follow the bootstrap skill, use https://github.com/galleonlabs/hypergrok-trading-desk/blob/v1.6.1/SETUP.md for the complete runbook, and finish with its evidence receipt.
 
-The v1.6.1 bootstrap installs the complete seventeen-skill release and verifies native role and skill instructions. The [public HyperGrok Desk Lead template](https://x.ai/bot/-c_oDxnkrXbWhBz-u4qu5) is being refreshed for this release; until then, **Start the desk.** there installs 1.5.0, without the research dataset workflow. [Publication evidence](docs/GROK_BOT_TEMPLATE.md#publication-verification---2026-10-08) for 1.5.0 is recorded separately.
+Or add the [public HyperGrok Desk Lead template](https://x.ai/bot/3Fjt0kR65RoGjj5JNZJWp), then send **Start the desk.** Its v1.6.1 bootstrap installs the complete seventeen-skill release and verifies native role and skill instructions. [Publication evidence](docs/GROK_BOT_TEMPLATE.md#publication-verification---2026-10-13) is recorded separately.
 
 The desk starts in research mode. The first demo uses only Hyperliquid's public `/info` endpoint: no wallet, account read or order. Add a testnet API wallet when you want to practise with play money, and a mainnet one when you are ready.
 
