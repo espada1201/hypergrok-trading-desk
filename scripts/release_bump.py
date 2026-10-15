@@ -98,10 +98,7 @@ def sync_hashes(root, pending):
 
 
 def snippet(old_line, new_line):
-    start = 0
-    while start < min(len(old_line), len(new_line)) and old_line[start] == new_line[start]:
-        start += 1
-    start = max(0, start - 20)
+    start = max(0, len(os.path.commonprefix([old_line, new_line])) - 20)
     before, after = (s[start:start + SNIPPET].strip() for s in (old_line, new_line))
     return f"{before} -> {after}"
 
@@ -128,9 +125,8 @@ def review_lines(root, old, new, pending):
         for number, line in enumerate(text.splitlines(), 1):
             hits = [m.start() for m in BARE_RE.finditer(line) if m["ver"] == old]
             hits += unpinned_tags(line, new)
-            hits.sort()
             if hits:
-                start = max(0, hits[0] - 60)
+                start = max(0, min(hits) - 60)
                 context = ("..." if start else "") + line[start:].strip()
                 yield f"{rel}:{number}: {context}"[:LINE_LIMIT]
 
