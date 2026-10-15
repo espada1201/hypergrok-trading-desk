@@ -64,6 +64,23 @@ def tree_digest(root):
     return digest.hexdigest()
 
 
+def tree_files(root):
+    return sorted(
+        os.path.relpath(os.path.join(dirpath, name), root)
+        for dirpath, _, filenames in os.walk(root)
+        for name in filenames
+        if name.endswith((".md", ".json", ".mdc"))
+    )
+
+
+def review_block(output):
+    lines = output.splitlines()
+    if "review by hand:" not in lines:
+        return []
+    block = lines[lines.index("review by hand:") + 1:]
+    return [line.strip() for line in block if line.startswith("  ")]
+
+
 def declared_versions(data):
     found = [data.get("version"), (data.get("metadata") or {}).get("version")]
     for plugin in data.get("plugins") or []:
@@ -89,16 +106,110 @@ class ReleaseBumpTest(unittest.TestCase):
         cls.temp.cleanup()
 
     def case(self):
-        path = os.path.join(self.temp.name, self.id().rsplit(".", 1)[-1])
+        return self.case_named("")
+
+    def case_named(self, suffix):
+        path = os.path.join(self.temp.name, self.id().rsplit(".", 1)[-1] + suffix)
         shutil.copytree(self.baseline, path)
         return path
+
+    def append(self, root, *lines, rel="README.md"):
+        path = os.path.join(root, rel)
+        with open(path, encoding="utf-8") as handle:
+            start = len(handle.read().splitlines()) + 2
+        with open(path, "a", encoding="utf-8") as handle:
+            handle.write("\n" + "\n\n".join(lines) + "\n")
+        return [start + 2 * i for i in range(len(lines))]
+
+    def test_rewritten_prose_tag_is_listed_but_pins_are_not(self):
+        root = self.case()
+        claim, pin = f"v{self.old} is tagged and published", f"git clone --branch v{self.old} URL"
+        claim_no, pin_no = self.append(root, claim, pin)
+        code, output = bump(root, NEW, "--dry-run")
+        self.assertEqual(code, 0, output)
+        review = review_block(output)
+        self.assertIn(f"README.md:{claim_no}: v{NEW} is tagged and published", review)
+        self.assertFalse([line for line in review if line.startswith(f"README.md:{pin_no}:")])
+
+    def test_bare_at_rule_is_anchored_to_the_package_name(self):
+        root = self.case()
+        anchored, other = f"hypergrok-trading-desk@{self.old} pin", f"other-pkg@{self.old} pin"
+        self.append(root, anchored, other)
+        code, output = bump(root, NEW)
+        self.assertEqual(code, 0, output)
+        readme = read(root, "README.md").decode().splitlines()
+        self.assertIn(f"hypergrok-trading-desk@{NEW} pin", readme)
+        self.assertIn(other, readme)
+
+    def test_rewrite_keeps_formatting_and_regex_bounds(self):
+        root = self.case()
+        bounded = f"v1{self.old} {self.old}0 v{self.old}.2"
+        (bounded_no,) = self.append(root, bounded)
+        before = {rel: read(root, rel).decode() for rel in tree_files(root)}
+        code, output = bump(root, NEW)
+        self.assertEqual(code, 0, output)
+        self.assertNotIn(f"README.md:{bounded_no}:", output)
+        changed = 0
+        for rel, text in before.items():
+            after = read(root, rel).decode()
+            old_lines, new_lines = text.splitlines(keepends=True), after.splitlines(keepends=True)
+            self.assertEqual(len(old_lines), len(new_lines), rel)
+            for number, (was, now) in enumerate(zip(old_lines, new_lines), 1):
+                if was != now and "sha256" not in was:
+                    changed += 1
+                    self.assertEqual(now.replace(NEW, self.old), was, f"{rel}:{number}")
+        self.assertGreater(changed, 0)
+        self.assertIn(bounded, read(root, "README.md").decode().splitlines())
+
+    def test_malformed_plugin_version_exits_2(self):
+        for label, rewrite in (
+            ("missing", lambda data: data.pop("version")),
+            ("short", lambda data: data.__setitem__("version", "1.6")),
+            ("number", lambda data: data.__setitem__("version", 161)),
+        ):
+            with self.subTest(label):
+                root = self.case_named(label)
+                data = load(root, "plugin.json")
+                rewrite(data)
+                with open(os.path.join(root, "plugin.json"), "w", encoding="utf-8") as handle:
+                    json.dump(data, handle)
+                before = tree_digest(root)
+                code, output = bump(root, NEW)
+                self.assertEqual(code, 2, output)
+                self.assertNotIn("Traceback", output)
+                self.assertIn("plugin.json", output)
+                self.assertEqual(tree_digest(root), before)
+
+    def test_same_version_prints_a_notice(self):
+        root = self.case()
+        code, output = bump(root, self.old)
+        self.assertEqual(code, 0, output)
+        self.assertIn("already", output)
+        self.assertIn("0 changed line(s)", output)
+
+    def test_hash_only_refuses_after_the_release_is_tagged(self):
+        root = self.case()
+        git = ["git", "-C", root, "-c", "user.name=t", "-c", "user.email=t@t", "-c", "commit.gpgsign=false"]
+        for args in (["init", "-q"], ["commit", "-q", "--allow-empty", "-m", "x"]):
+            subprocess.run([*git, *args], check=True, capture_output=True)
+        code, output = bump(root)
+        self.assertEqual(code, 0, output)
+        subprocess.run([*git, "tag", f"v{self.old}"], check=True, capture_output=True)
+        before = tree_digest(os.path.join(root, "scripts"))
+        code, output = bump(root)
+        self.assertEqual(code, 2, output)
+        self.assertIn("version", output)
+        self.assertNotIn(STUB_MARK, output)
+        self.assertEqual(tree_digest(os.path.join(root, "scripts")), before)
+        code, output = bump(root, NEW, "--dry-run")
+        self.assertEqual(code, 0, output)
 
     def test_bump_rewrites_pins_and_syncs_hashes(self):
         root = self.case()
         # Real prose drifts after each release, so the fixture lines are injected.
         with open(os.path.join(root, "README.md"), "a", encoding="utf-8") as handle:
             handle.write(f"\nFixture: {self.old} {PROSE_CLAIM}.\n")
-            handle.write(f"\nFixture code: `{self.old}`, pkg@{self.old}, v{self.old}.\n")
+            handle.write(f"\nFixture code: `{self.old}`, hypergrok-trading-desk@{self.old}, v{self.old}.\n")
         code, output = bump(root, NEW)
         self.assertEqual(code, 0, output)
         self.assertIn(STUB_MARK, output)
@@ -127,7 +238,7 @@ class ReleaseBumpTest(unittest.TestCase):
         self.assertIn(claim, readme)
         self.assertIn("review by hand", output)
         self.assertIn(f"README.md:{readme.index(claim) + 1}: {claim}", output)
-        self.assertIn(f"Fixture code: `{NEW}`, pkg@{NEW}, v{NEW}.", readme)
+        self.assertIn(f"Fixture code: `{NEW}`, hypergrok-trading-desk@{NEW}, v{NEW}.", readme)
 
     def test_dry_run_writes_nothing(self):
         root = self.case()
